@@ -1,3 +1,5 @@
+@tool
+@icon("res://assets/dialogue_scene_icon.svg")
 extends Control
 
 var expressions := {
@@ -15,8 +17,9 @@ var bodies := {
 ## - expression: a [code]Texture[/code] containing an expression
 ## - text: a [code]String[/code] containing the text the character says
 ## - character: a [code]Texture[/code] representing the character
-@export var dialogue_items: Array[DialogueItem] = []
-
+@export var dialogue_items: Array[DialogueItem] = []:
+	set = set_dialogue_items
+@export var choices: Array[DialogueChoice] = []: set = set_choices
 
 
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
@@ -28,9 +31,18 @@ var bodies := {
 @onready var expression: TextureRect = %Expression
 @onready var action_buttons_v_box_container: VBoxContainer = %ActionButtonsVBoxContainer
 
+
+func set_choices(new_choices: Array[DialogueChoice]) -> void:
+	for index in new_choices.size():
+		if new_choices[index] == null:
+			new_choices[index] = DialogueChoice.new()
+	choices = new_choices
+
 func _ready() -> void:
 	show_text(0)
-
+	if Engine.is_editor_hint():
+		return
+	show_text(0)
 
 func show_text(current_item_index: int) -> void:
 	
@@ -85,3 +97,14 @@ func slide_in() -> void:
 	slide_tween.tween_property(body, "position:x", 0, 0.3)
 	body.modulate.a = 0
 	slide_tween.parallel().tween_property(body, "modulate:a", 1, 0.2)
+
+func set_dialogue_items(new_dialogue_items: Array[DialogueItem]) -> void:
+	for index in new_dialogue_items.size():
+		if new_dialogue_items[index] == null:
+			new_dialogue_items[index] = DialogueItem.new()
+	dialogue_items = new_dialogue_items
+	update_configuration_warnings()
+func _get_configuration_warnings() -> PackedStringArray:
+	if dialogue_items.is_empty():
+		return ["You need at least one dialogue item for the dialogue system to work."]
+	return []

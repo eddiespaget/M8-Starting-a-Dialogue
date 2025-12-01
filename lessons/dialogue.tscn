@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nggfo")
 script = ExtResource("2_n1q1t")
-dialogue_items = Array[ExtResource("3_xlxck")]([SubResource("Resource_1m3r0"), SubResource("Resource_1f3kq"), null])
+dialogue_items = Array[ExtResource("3_xlxck")]([SubResource("Resource_1m3r0"), SubResource("Resource_1f3kq")])
 
 [node name="Background" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_efgpg")
@@ -104,24 +104,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 bbcode_enabled = true
-text = "Hello World"
+text = "Hi. Do you like chocolate?"
 fit_content = true
 
 [node name="ActionButtonsVBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Button" type="Button" parent="VBoxContainer/ActionButtonsVBoxContainer"]
-layout_mode = 2
-text = "Test Button"
-
-[node name="Button2" type="Button" parent="VBoxContainer/ActionButtonsVBoxContainer"]
-layout_mode = 2
-text = "Test Button"
-
-[node name="Button3" type="Button" parent="VBoxContainer/ActionButtonsVBoxContainer"]
-layout_mode = 2
-text = "Test Button"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
